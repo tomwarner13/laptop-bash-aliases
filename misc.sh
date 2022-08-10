@@ -98,6 +98,15 @@ cc() {
 		"NVMPIAH")
 			TARGET="new-importer/"
 			;;
+		"INVTSHA")
+			echo "Data or schema?"
+			select choice in "Data" "Schema"; do
+				case $choice in
+					Data ) TARGET="DB-Changes/"; break;;
+					Schema ) TARGET="do.shared.ssdt.inventory/"; break;;
+				esac
+			done
+			;;
 	esac
 	cd /c/DealerOn/$TARGET
 }

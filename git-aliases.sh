@@ -19,6 +19,8 @@ gfl() {
 	fi
 }
 
+alias gflm='gfl master'
+
 alias grhh='git reset --hard HEAD'
 alias gsm='git submodule update --init --recursive'
 alias gs='git status'
