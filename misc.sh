@@ -5,13 +5,15 @@ export PS1='🏠\[\033[38;5;214m\]\u\[$(tput sgr0)\]@\[\033[38;5;39m\]\h\[$(tput
 export PATH=$PATH:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/
 
 vs() {
-	current_path="$(pwd)"
+#	current_path="$(pwd)"
+
+	pwsh -command 'Start-Process devenv $(find . -maxdepth 2 -name *.sln)'
 	#start Torque apps in 2019 because the stupid breakpoint bug
-	if [ "$current_path" = "/c/DealerOn/Pricing" ] || [ "$current_path" = "/c/DealerOn/Inventory" ]; then
-		pwsh -command 'Start-Process "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe" $(find . -maxdepth 2 -name *.sln)'
-	else
-		pwsh -command 'Start-Process devenv $(find . -maxdepth 2 -name *.sln)'
-	fi
+#	if [ "$current_path" = "/c/DealerOn/Pricing" ] || [ "$current_path" = "/c/DealerOn/Inventory" ]; then
+#		pwsh -command 'Start-Process "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe" $(find . -maxdepth 2 -name *.sln)'
+#	else
+#		pwsh -command 'Start-Process devenv $(find . -maxdepth 2 -name *.sln)'
+#	fi
 }
 
 alias reamde='ls | grep -i "readme.md" | xargs head -20'
