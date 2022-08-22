@@ -100,6 +100,9 @@ cc() {
 		"NVMPIAH")
 			TARGET="new-importer/"
 			;;
+		"STRGSHA")
+			TARGET="strgsha/"
+			;;
 		"INVTSHA")
 			echo "Data or schema?"
 			select choice in "Data" "Schema"; do
