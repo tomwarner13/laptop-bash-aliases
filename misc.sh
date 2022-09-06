@@ -4,6 +4,12 @@ export PS1='🏠\[\033[38;5;214m\]\u\[$(tput sgr0)\]@\[\033[38;5;39m\]\h\[$(tput
 # necessary for something lol idk, probably some weird dependency
 export PATH=$PATH:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/
 
+# this somehow points to the wrong path to build stuff for Snipster by default
+JAVA_HOME='C:\Program Files\Java\jdk1.8.0_333'
+
+# saves some typing lol
+alias snipster-go='./gradlew build && ./gradlew stage && heroku local -f Procfile.windows'
+
 vs() {
 #	current_path="$(pwd)"
 
