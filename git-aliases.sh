@@ -60,3 +60,7 @@ gpd() {
 		fi
 	fi
 }
+
+show-hot-code-paths() {
+	git rev-list --objects --all --since="$1" | eval "awk '\$2 ~ /\.cs$/'" | eval "awk '{print \$2}'" | sort -k2 | uniq -c | sort -rn | head -n $2
+}
