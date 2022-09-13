@@ -5,7 +5,7 @@ export PS1='🏠\[\033[38;5;214m\]\u\[$(tput sgr0)\]@\[\033[38;5;39m\]\h\[$(tput
 export PATH=$PATH:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/
 
 # this somehow points to the wrong path to build stuff for Snipster by default
-JAVA_HOME='C:\Program Files\Java\jdk1.8.0_333'
+JAVA_HOME='C:\Program Files\Java\jdk-18.0.2.1'
 
 # saves some typing lol
 alias snipster-go='./gradlew build && ./gradlew stage && heroku local -f Procfile.windows'
@@ -103,6 +103,9 @@ cc() {
 		"CODETESTS")
 			TARGET="CodeTests/"
 			;;			
+		"SNIPSTER")
+			TARGET="Snipster/"
+			;;			
 		"NVMPIAH")
 			TARGET="new-importer/"
 			;;
@@ -143,6 +146,20 @@ review() {
 	if [[ -z $remote ]]; then
 		echo "no remote branch matching the ticket number $ticket could be found!"
 		return 1
+	fi
+
+	# more than one branch matched, prompt user to choose or exit
+	if [[ $(echo "$remote" | wc -l) -ne 1 ]]; then
+		echo "multiple branches matched the given ticket, choose by number or [0] to exit"
+		readarray -t remotes <<<"$remote"
+		select branch in "${remotes[@]}"; do
+			if [[ -z "$branch" ]]; then
+		        echo "Exiting..."
+		        return 1
+		    fi
+			remote=$branch
+			break;
+		done
 	fi
 
 	rawRemote=`echo "$remote" | sed -E 's/.*origin\/(.*)/\1/'`
