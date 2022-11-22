@@ -112,6 +112,9 @@ cc() {
 		"STRGSHA")
 			TARGET="strgsha/"
 			;;
+		"INVTOTA")
+			TARGET="invtota/"
+			;;
 		"INVTSHA")
 			echo "Data or schema?"
 			select choice in "Data" "Schema"; do
@@ -125,12 +128,55 @@ cc() {
 	cd /c/DealerOn/$TARGET
 }
 
-# usage: review <ticket>
+# usage: reviewjs <ticket>
 
-review() {
+reviewjs() {
 	ticket=${1^^}
 	# extract project abbrev, cc to that repo
 	project=`echo "$ticket" | sed -E 's/([A-Z]{7}).*/\1/'`
+	cc $project
+
+	# fail if uncommited changes
+	if [[ ! -z $(git status --porcelain) ]]; then
+		echo "the repo is in an unclean state! any degeneracy must be purged"
+		return 1
+	fi
+
+	# fetch all branches; pull latest on any that matches the ticket number if available
+	git fetch
+	remote=`git branch -r | grep $ticket`
+	#fail on empty remote
+	if [[ -z $remote ]]; then
+		echo "no remote branch matching the ticket number $ticket could be found!"
+		return 1
+	fi
+
+	# more than one branch matched, prompt user to choose or exit
+	if [[ $(echo "$remote" | wc -l) -ne 1 ]]; then
+		echo "multiple branches matched the given ticket, choose by number or [0] to exit"
+		readarray -t remotes <<<"$remote"
+		select branch in "${remotes[@]}"; do
+			if [[ -z "$branch" ]]; then
+		        echo "Exiting..."
+		        return 1
+		    fi
+			remote=$branch
+			break;
+		done
+	fi
+
+	rawRemote=`echo "$remote" | sed -E 's/.*origin\/(.*)/\1/'`
+	git checkout $rawRemote
+	git pull
+	gsm
+}
+
+# updated for jira cloud
+# usage: reviewc nvmpbaa oem-5576
+
+review() {
+	ticket=${2^^}
+	project=${1^^}
 	cc $project
 
 	# fail if uncommited changes
