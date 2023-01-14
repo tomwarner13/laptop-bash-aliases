@@ -26,6 +26,12 @@ alias reamde='ls | grep -i "readme.md" | xargs head -20'
 
 #cc <project> -- opens the repo associated with a project code
 cc() {
+	if [ $# -eq 0 ]
+	then
+		cd /c/DealerOn
+		return 0
+	fi
+
 	TARGET=""
 	case "${1^^}" in
 		"LCMSSAB")
@@ -124,6 +130,10 @@ cc() {
 				esac
 			done
 			;;
+		*)
+			TARGET="$1/"
+			;;
+
 	esac
 	cd /c/DealerOn/$TARGET
 }
