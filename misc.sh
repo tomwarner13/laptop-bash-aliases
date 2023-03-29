@@ -2,7 +2,7 @@
 export PS1='🏠\[\033[38;5;214m\]\u\[$(tput sgr0)\]@\[\033[38;5;39m\]\h\[$(tput sgr0)\][\[\033[38;5;11m\]\W\[$(tput sgr0)\]]\[\033[36m\]`__git_ps1` \[$(tput sgr0)\]| \[\033[38;5;213m\]\t\[$(tput sgr0)\] 🏠\$ '
 
 # necessary for something lol idk, probably some weird dependency
-export PATH=$PATH:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/
+export PATH=$PATH:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/
 
 # this somehow points to the wrong path to build stuff for Snipster by default
 JAVA_HOME='C:\Program Files\Java\jdk-18.0.2.1'
@@ -223,3 +223,9 @@ review() {
 	git pull
 	gsm
 }
+
+# env vars for jirae, https://github.com/codesoap/jirae
+export EDITOR=vim
+export JIRA_URL=https://dealeron.atlassian.net
+export JIRA_USER=twarner@dealeron.com
+export JIRA_TOKEN=ATATT3xFfGF010AE6yztfPA7IigllOTLvfKWoX4PUhawwaKeAbEYjW7482KsDaR-R6MQhWK61GT6gXHO5Ktz-2FU4L3W3O5-8u8yZcP0B7uqE5-dxXBcFqBaGvGLKfgrbfeoti7RKcoNLw3awHMX7v99KpOhXvuWUBOIM8JKvr2hCXAz6atNfEs=4CF8BBDB

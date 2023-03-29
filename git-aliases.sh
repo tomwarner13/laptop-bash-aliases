@@ -44,6 +44,11 @@ gbt() {
 	git checkout tags/$1 -b $2
 }
 
+#git-merge-tag -- merge in a specific tag from origin
+gmt() {
+	git fetch && git merge $1
+}
+
 #git-pull-down -- a git pull, but the way it should fucking work all the time
 gpd() {
 	head="$(git rev-parse --abbrev-ref HEAD)"
