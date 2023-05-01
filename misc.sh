@@ -224,8 +224,12 @@ review() {
 	gsm
 }
 
+rc() {
+	RC="$1"
+}
+
+
 # env vars for jirae, https://github.com/codesoap/jirae
 export EDITOR=vim
 export JIRA_URL=https://dealeron.atlassian.net
 export JIRA_USER=twarner@dealeron.com
-export JIRA_TOKEN=ATATT3xFfGF010AE6yztfPA7IigllOTLvfKWoX4PUhawwaKeAbEYjW7482KsDaR-R6MQhWK61GT6gXHO5Ktz-2FU4L3W3O5-8u8yZcP0B7uqE5-dxXBcFqBaGvGLKfgrbfeoti7RKcoNLw3awHMX7v99KpOhXvuWUBOIM8JKvr2hCXAz6atNfEs=4CF8BBDB

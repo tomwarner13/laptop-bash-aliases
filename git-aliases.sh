@@ -41,7 +41,7 @@ gst() {
 
 #git-branch-tag
 gbt() {
-	git checkout tags/$1 -b $2
+	git fetch && git checkout tags/$1 -b $2
 }
 
 #git-merge-tag -- merge in a specific tag from origin
