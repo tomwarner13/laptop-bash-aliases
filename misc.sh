@@ -2,7 +2,8 @@
 export PS1='🏠\[\033[38;5;214m\]\u\[$(tput sgr0)\]@\[\033[38;5;39m\]\h\[$(tput sgr0)\][\[\033[38;5;11m\]\W\[$(tput sgr0)\]]\[\033[36m\]`__git_ps1` \[$(tput sgr0)\]| \[\033[38;5;213m\]\t\[$(tput sgr0)\] 🏠\$ '
 
 # necessary for something lol idk, probably some weird dependency
-export PATH=$PATH:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/
+# also makes smerge work
+export PATH=$PATH:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge
 
 # this somehow points to the wrong path to build stuff for Snipster by default
 JAVA_HOME='C:\Program Files\Java\jdk-18.0.2.1'
@@ -225,11 +226,19 @@ review() {
 }
 
 rc() {
+	if [ $# -eq 0 ]
+	then
+		echo $RC
+		return 0
+	fi
+
 	RC="$1"
 }
 
+alias sauce="source ~/.bashrc"
 
 # env vars for jirae, https://github.com/codesoap/jirae
 export EDITOR=vim
 export JIRA_URL=https://dealeron.atlassian.net
 export JIRA_USER=twarner@dealeron.com
+# TOKEN LIVES IN .bashrc SO IT CANT GET PUSHED REMOTELY
