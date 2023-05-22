@@ -226,13 +226,12 @@ review() {
 }
 
 rc() {
-	if [ $# -eq 0 ]
+	if [ $# -eq 1 ]
 	then
-		echo $RC
-		return 0
+		RC="$1"
 	fi
 
-	RC="$1"
+	echo $RC
 }
 
 alias sauce="source ~/.bashrc"
