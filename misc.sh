@@ -11,10 +11,16 @@ JAVA_HOME='C:\Program Files\Java\jdk-18.0.2.1'
 # saves some typing lol
 alias snipster-go='./gradlew build && ./gradlew stage && heroku local -f Procfile.windows'
 
-vs() {
-#	current_path="$(pwd)"
+alias lg='winpty lazygit && tput cnorm'
 
-	pwsh -command 'Start-Process devenv $(find . -maxdepth 2 -name *.sln)'
+vs() {
+	current_path="$(pwd)"
+	#start SITESAA with the correct solution file cause there's (sigh) three
+	if [ "$current_path" = "/c/DealerOn/Platform" ]; then
+		pwsh -command 'Start-Process devenv Source\SITESAA.sln'
+	else
+		pwsh -command 'Start-Process devenv $(find . -maxdepth 2 -name *.sln)'
+	fi
 	#start Torque apps in 2019 because the stupid breakpoint bug
 #	if [ "$current_path" = "/c/DealerOn/Pricing" ] || [ "$current_path" = "/c/DealerOn/Inventory" ]; then
 #		pwsh -command 'Start-Process "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe" $(find . -maxdepth 2 -name *.sln)'
