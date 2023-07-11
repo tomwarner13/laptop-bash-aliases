@@ -37,6 +37,7 @@ ride() {
 	else
 		pwsh -command 'Start-Process rider64 $(find . -maxdepth 2 -name *.sln)'
 	fi
+	shuf -n 1 ~/bash-aliases/mc_ride.txt
 }
 
 alias reamde='ls | grep -i "readme.md" | xargs head -20'
@@ -199,7 +200,7 @@ reviewjs() {
 }
 
 # updated for jira cloud
-# usage: reviewc nvmpbaa oem-5576
+# usage: review nvmpbaa oem-5576
 
 review() {
 	ticket=${2^^}
