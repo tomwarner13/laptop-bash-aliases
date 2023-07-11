@@ -1,9 +1,8 @@
 # emoji prompt
 export PS1='🏠\[\033[38;5;214m\]\u\[$(tput sgr0)\]@\[\033[38;5;39m\]\h\[$(tput sgr0)\][\[\033[38;5;11m\]\W\[$(tput sgr0)\]]\[\033[36m\]`__git_ps1` \[$(tput sgr0)\]| \[\033[38;5;213m\]\t\[$(tput sgr0)\] 🏠\$ '
 
-# necessary for something lol idk, probably some weird dependency
-# also makes smerge work
-export PATH=$PATH:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge
+# various dependencies necessary for path
+export PATH=$PATH:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge:/c/Program\ Files/JetBrains/JetBrains\ Rider\ 2023.1.3/bin/
 
 # this somehow points to the wrong path to build stuff for Snipster by default
 JAVA_HOME='C:\Program Files\Java\jdk-18.0.2.1'
@@ -27,6 +26,17 @@ vs() {
 #	else
 #		pwsh -command 'Start-Process devenv $(find . -maxdepth 2 -name *.sln)'
 #	fi
+}
+
+ride() {
+	# rider path if necessary: C:\Program Files\JetBrains\JetBrains Rider 2023.1.3\bin\rider64.exe
+	current_path="$(pwd)"
+	#start SITESAA with the correct solution file cause there's (sigh) three
+	if [ "$current_path" = "/c/DealerOn/Platform" ]; then
+		pwsh -command 'Start-Process rider64 Source\SITESAA.sln'
+	else
+		pwsh -command 'Start-Process rider64 $(find . -maxdepth 2 -name *.sln)'
+	fi
 }
 
 alias reamde='ls | grep -i "readme.md" | xargs head -20'
