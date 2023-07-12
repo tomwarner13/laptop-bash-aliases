@@ -49,6 +49,12 @@ gmt() {
 	git fetch && git merge $1
 }
 
+#use RC as the tag mostly
+alias gmtr='gmt $RC'
+gbtr() {
+	gbt $RC $1
+}
+
 #git-pull-down -- a git pull, but the way it should fucking work all the time
 gpd() {
 	head="$(git rev-parse --abbrev-ref HEAD)"
