@@ -242,6 +242,10 @@ review() {
 	gsm
 }
 
+reviews() {
+	review SITESAA $1
+}
+
 rc() {
 	if [ $# -eq 1 ]
 	then
