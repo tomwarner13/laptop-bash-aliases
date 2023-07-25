@@ -1,4 +1,5 @@
-# HEY DINGUS--IF YOU ARE LOOKING FOR A CUSTOM GIT COMMAND YOU WROTE AND IT'S NOT IN HERE, IT'S CAUSE YOU WROTE IT AS A GIT ALIAS INSTEAD -- CHECK `git config -e --global`
+# HEY DINGUS--IF YOU ARE LOOKING FOR A CUSTOM GIT COMMAND YOU WROTE AND IT'S NOT IN HERE, IT'S CAUSE YOU WROTE IT AS A GIT ALIAS INSTEAD
+# CHECK `git config -e --global` or `git aliases` to just echo em all
 
 gacp() {
 	git add . && git commit -m "$1" && git pushup
@@ -77,3 +78,6 @@ gpd() {
 show-hot-code-paths() {
 	git rev-list --objects --all --since="$1" | eval "awk '\$2 ~ /\.cs$/'" | eval "awk '{print \$2}'" | sort -k2 | uniq -c | sort -rn | head -n $2
 }
+
+# clean basically every git branch which does not have an active remote
+alias git-purge='git delete-local-only-branches && git gone'

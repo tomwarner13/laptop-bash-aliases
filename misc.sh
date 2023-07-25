@@ -11,6 +11,7 @@ JAVA_HOME='C:\Program Files\Java\jdk-18.0.2.1'
 alias snipster-go='./gradlew build && ./gradlew stage && heroku local -f Procfile.windows'
 
 alias lg='winpty lazygit && tput cnorm'
+alias azl='az login'
 
 vs() {
 	current_path="$(pwd)"
