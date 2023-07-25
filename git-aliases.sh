@@ -10,6 +10,12 @@ gcp() {
 	git commit -m "$1" && git pushup
 }
 
+push-github() {
+	rawRemote="$(git config --get remote.origin.url)"
+	fixedRemote="${rawRemote/github/tomwarner13@github}"
+	git push $fixedRemote
+}
+
 alias gp='git pushup'
 
 gfl() {
