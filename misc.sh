@@ -12,6 +12,7 @@ alias snipster-go='./gradlew build && ./gradlew stage && heroku local -f Procfil
 
 alias lg='winpty lazygit && tput cnorm'
 alias azl='az login'
+alias ybs='(cd /c/DealerOn/Platform/Source/SITESAA.Presentation.Assets/ && yarn build)'
 
 vs() {
 	current_path="$(pwd)"
