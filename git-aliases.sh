@@ -47,6 +47,13 @@ gst() {
 		git checkout -b "$1"
 }
 
+tagrc() {
+	git fetch -t
+	git tag -a -m "RC_$1" RC_$1 BL_$1^{}
+	git push --tags
+	rc "RC_$1"
+}
+
 #git-branch-tag
 gbt() {
 	git fetch && git checkout tags/$1 -b $2
@@ -58,9 +65,9 @@ gmt() {
 }
 
 #use RC as the tag mostly
-alias gmtr='gmt $RC'
+alias gmtr='gmt $(rc)'
 gbtr() {
-	gbt $RC $1
+	gbt $(rc) $1
 }
 
 #git-pull-down -- a git pull, but the way it should fucking work all the time

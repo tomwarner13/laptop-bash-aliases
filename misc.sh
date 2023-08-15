@@ -1,8 +1,8 @@
 # emoji prompt
-export PS1='🏠\[\033[38;5;214m\]\u\[$(tput sgr0)\]@\[\033[38;5;39m\]\h\[$(tput sgr0)\][\[\033[38;5;11m\]\W\[$(tput sgr0)\]]\[\033[36m\]`__git_ps1` \[$(tput sgr0)\]| \[\033[38;5;213m\]\t\[$(tput sgr0)\] 🏠\$ '
+export PS1='🏠\[\033[38;5;214m\]\u\[\033[0m\]@\[\033[38;5;39m\]\h\[\033[0m\][\[\033[38;5;11m\]\W\[\033[0m\]]\[\033[36m\]`__git_ps1` \[\033[0m\]| \[\033[38;5;213m\]\t\[\033[0m\] 🏠\$ '
 
 # various dependencies necessary for path
-export PATH=$PATH:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge:/c/Program\ Files/JetBrains/JetBrains\ Rider\ 2023.1.3/bin/
+export PATH=$PATH:/usr/bin:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge:/c/Program\ Files/JetBrains/JetBrains\ Rider\ 2023.1.3/bin/
 
 # this somehow points to the wrong path to build stuff for Snipster by default
 JAVA_HOME='C:\Program Files\Java\jdk-18.0.2.1'
@@ -248,13 +248,22 @@ reviews() {
 	review SITESAA $1
 }
 
-rc() {
+rc-old() {
 	if [ $# -eq 1 ]
 	then
 		RC="$1"
 	fi
 
 	echo $RC
+}
+
+rc() {
+	if [ $# -eq 1 ]
+	then
+		echo $1 > /c/Dealeron/.rc
+	fi
+
+	cat /c/Dealeron/.rc
 }
 
 alias sauce="source ~/.bashrc"
