@@ -52,6 +52,7 @@ tagrc() {
 	git tag -a -m "RC_$1" RC_$1 BL_$1^{}
 	git push --tags
 	rc "RC_$1"
+	echo ":sparkles: Latest RC: RC_$1"
 }
 
 #git-branch-tag
@@ -94,4 +95,4 @@ show-hot-code-paths() {
 }
 
 # clean basically every git branch which does not have an active remote
-alias git-purge='git delete-local-only-branches && git gone'
+alias git-purge='git delete-local-only-branches; git gone'
