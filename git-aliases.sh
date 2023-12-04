@@ -27,7 +27,7 @@ gfl() {
 	fi
 }
 
-alias gflm='gfl master'
+alias gflm='gfl main'
 
 alias grhh='git reset --hard HEAD'
 alias gsm='git submodule update --init --recursive'
@@ -41,7 +41,7 @@ gcb() {
 gst() {
 		git clean -fd
 		git reset --hard HEAD
-		git checkout master
+		git checkout main
 		git pull
 		git submodule update --init --recursive
 		git checkout -b "$1"

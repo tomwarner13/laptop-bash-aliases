@@ -263,7 +263,8 @@ rc() {
 		echo $1 > /c/Dealeron/.rc
 	fi
 
-	cat /c/Dealeron/.rc
+	RC=$( cat /c/DealerOn/.rc )
+	echo ":sparkles: Latest RC: $RC"
 }
 
 alias sauce="source ~/.bashrc"
