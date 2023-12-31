@@ -261,10 +261,11 @@ rc() {
 	if [ $# -eq 1 ]
 	then
 		echo $1 > /c/Dealeron/.rc
+		echo ":sparkles: Latest RC: $RC"
 	fi
 
 	RC=$( cat /c/DealerOn/.rc )
-	echo ":sparkles: Latest RC: $RC"
+	echo $RC
 }
 
 alias sauce="source ~/.bashrc"
