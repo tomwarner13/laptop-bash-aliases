@@ -31,13 +31,12 @@ vs() {
 }
 
 ride() {
-	# rider path if necessary: C:\Program Files\JetBrains\JetBrains Rider 2023.1.3\bin\rider64.exe
 	current_path="$(pwd)"
 	#start SITESAA with the correct solution file cause there's (sigh) three
 	if [ "$current_path" = "/c/DealerOn/Platform" ]; then
-		pwsh -command 'Start-Process rider64 Source\SITESAA.sln'
+		pwsh -command 'Start-Process "C:\Program Files\JetBrains\JetBrains Rider 2023.3.2\bin\rider64.exe" Source\SITESAA.sln'
 	else
-		pwsh -command 'Start-Process rider64 $(find . -maxdepth 2 -name *.sln)'
+		pwsh -command 'Start-Process "C:\Program Files\JetBrains\JetBrains Rider 2023.3.2\bin\rider64.exe" $(find . -maxdepth 2 -name *.sln)'
 	fi
 	shuf -n 1 ~/bash-aliases/mc_ride.txt
 }
@@ -261,11 +260,11 @@ rc() {
 	if [ $# -eq 1 ]
 	then
 		echo $1 > /c/Dealeron/.rc
-		echo ":sparkles: Latest RC: $RC"
 	fi
 
 	RC=$( cat /c/DealerOn/.rc )
 	echo $RC
+	echo ":sparkles: Latest RC: $RC"
 }
 
 alias sauce="source ~/.bashrc"
