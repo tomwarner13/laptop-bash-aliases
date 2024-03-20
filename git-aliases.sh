@@ -5,6 +5,10 @@ gacp() {
 	git add . && git commit -m "$1" && git pushup
 }
 
+gacpub() {
+	git add . && git commit -m "$1" && push-github
+}
+
 
 gcp() {
 	git commit -m "$1" && git pushup
