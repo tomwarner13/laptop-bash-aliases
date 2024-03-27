@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# uncomment to disable this check
+# exit 0
+
+current_path="$(pwd)"
+if [[ "$current_path" != "/c/DealerOn/"* ]] || [[ "$current_path" = "/c/DealerOn/Snipster"* ]] || [[ "$current_path" = "/c/DealerOn/SITESAA"* ]] || [[ "$current_path" = "/c/DealerOn/ObjectSortConverter"* ]] || [[ "$current_path" = "/c/DealerOn/Projects"* ]]; then
+	exit 0
+fi
+
+
+MESSAGE=$(cat $1)
+TICKET=$(git rev-parse --abbrev-ref HEAD | grep -Eo ^[A-Z]+\-[0-9]+)
+
+if [[ -z $TICKET ]]
+then
+  
+  # Allows us to read user input below, assigns stdin to keyboard
+  exec < /dev/tty
+
+  echo "Unable to prepend ticket number from branch. Make sure you're not on main."
+  echo "Commit anyway? [y for yes, {any} for no]"
+  read -p "Commit anyway? " yn
+  case $yn in
+    [Yy]* ) exit 0;;
+    * ) exit 1;;
+  esac
+
+  exec <&-
+else
+  echo "$TICKET: $MESSAGE" > $1
+fi
