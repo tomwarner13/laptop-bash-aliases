@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# symlinked from ~/.githooks/prepare-commit-msg
+
 # uncomment to disable this check
 # exit 0
 
@@ -26,6 +28,7 @@ then
     * ) exit 1;;
   esac
 
+  # return input to wherever it was assigned before i guess
   exec <&-
 else
   echo "$TICKET: $MESSAGE" > $1
