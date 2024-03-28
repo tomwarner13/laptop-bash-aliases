@@ -7,12 +7,20 @@
 
 current_path="$(pwd)"
 if [[ "$current_path" != "/c/DealerOn/"* ]] || [[ "$current_path" = "/c/DealerOn/Snipster"* ]] || [[ "$current_path" = "/c/DealerOn/SITESAA"* ]] || [[ "$current_path" = "/c/DealerOn/ObjectSortConverter"* ]] || [[ "$current_path" = "/c/DealerOn/Projects"* ]]; then
-	exit 0
+  exit 0
 fi
 
 
 MESSAGE=$(cat $1)
-TICKET=$(git rev-parse --abbrev-ref HEAD | grep -Eo ^[A-Z]+\-[0-9]+)
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [[ $BRANCH =~ v[0-9]+\. ]]; then
+  # this looks like a version branch, meaning we're in the integrate script: exit
+  echo "we are apparently on a version branch, bypassing commit message check"
+  exit 0
+fi
+
+TICKET=$($BRANCH | grep -Eo ^[A-Z]+\-[0-9]+)
 
 if [[ -z $TICKET ]]
 then

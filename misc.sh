@@ -14,6 +14,9 @@ alias lg='winpty lazygit && tput cnorm'
 alias azl='az login'
 alias ybs='(cd /c/DealerOn/Platform/Source/SITESAA.Presentation.Assets/ && yarn build)'
 
+# set nvim to run in correct environment
+alias nvim="winpty nvim"
+
 vs() {
 	current_path="$(pwd)"
 	#start SITESAA with the correct solution file cause there's (sigh) three
