@@ -1,8 +1,11 @@
 # emoji prompt
-export PS1='🏠\[\033[38;5;214m\]\u\[\033[0m\]@\[\033[38;5;39m\]\h\[\033[0m\][\[\033[38;5;11m\]\W\[\033[0m\]]\[\033[36m\]`__git_ps1` \[\033[0m\]| \[\033[38;5;213m\]\t\[\033[0m\] 🏠\$ '
+export PS1='🏠\[\033[38;5;214m\]\u\[\033[0m\]@\[\033[38;5;39m\]\h\[\033[0m\][\[\033[38;5;11m\]\W\[\033[0m\]]\[\033[36m\]`__git_ps1` \[\033[0m\]| \[\033[38;5;213m\]\t\[\033[0m\] 🏠\n\$ '
 
 # various dependencies necessary for path
 export PATH=$PATH:/usr/bin:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge:/c/Program\ Files/JetBrains/JetBrains\ Rider\ 2023.1.3/bin/
+
+# make ls look nice
+alias ls="ls -Fal --color"
 
 # this somehow points to the wrong path to build stuff for Snipster by default
 JAVA_HOME='C:\Program Files\Java\jdk-18.0.2.1'
@@ -15,7 +18,8 @@ alias azl='az login'
 alias ybs='(cd /c/DealerOn/Platform/Source/SITESAA.Presentation.Assets/ && yarn build)'
 
 # set nvim to run in correct environment
-alias nvim="winpty nvim"
+# alias nvim="winpty nvim"
+# alias python3="winpty python3"
 
 vs() {
 	current_path="$(pwd)"
@@ -270,7 +274,26 @@ rc() {
 	echo ":sparkles: Latest RC: $RC"
 }
 
-alias sauce="source ~/.bashrc"
+alias sauce="source ~/.bashrc && rm ~/.githooks/prepare-commit-msg && ln -s ~/bash-aliases/prepare-commit-msg ~/.githooks/prepare-commit-msg"
+
+hkdiff() {
+	file1="$(mktemp)"
+	file2="$(mktemp)"
+	curl -k -H "X-Dealer-Id: $3" $1 -o $file1
+	curl -k -H "X-Dealer-Id: $3" $2 -o $file2
+
+	/c/Program\ Files/KDiff3/kdiff3.exe $file1 $file2
+
+	rm $file1
+	rm $file2
+}
+
+# USAGE: hkdiff just-drive-subaru-rental loadOemssaaSubaru 17777
+# so hkdiff <page> <toggle> <dealerId>
+
+oemsdiff() {
+	hkdiff https://localhost:7224/$1?$2=on https://localhost:7224/$1?$2=off $3
+}
 
 # env vars for jirae, https://github.com/codesoap/jirae
 export EDITOR=vim
