@@ -2,7 +2,10 @@
 export PS1='🏠\[\033[38;5;214m\]\u\[\033[0m\]@\[\033[38;5;39m\]\h\[\033[0m\][\[\033[38;5;11m\]\W\[\033[0m\]]\[\033[36m\]`__git_ps1` \[\033[0m\]| \[\033[38;5;213m\]\t\[\033[0m\] 🏠\n\$ '
 
 # various dependencies necessary for path
-export PATH=$PATH:/usr/bin:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge:/c/Program\ Files/JetBrains/JetBrains\ Rider\ 2023.1.3/bin/
+export PATH=$PATH:/usr/bin:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge:/c/Program\ Files/JetBrains/JetBrains\ Rider\ 2023.1.3/bin/:/c/Program\ Files/KDiff3/
+
+#de-dupe PATH all at once instead of trying to do anything clever
+export PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
 
 # make ls look nice
 alias ls="ls -Fal --color"
@@ -16,6 +19,26 @@ alias snipster-go='./gradlew build && ./gradlew stage && heroku local -f Procfil
 alias lg='winpty lazygit && tput cnorm'
 alias azl='az login'
 alias ybs='(cd /c/DealerOn/Platform/Source/SITESAA.Presentation.Assets/ && yarn build)'
+
+# build and run SITESAA from CLI
+alias siterun='dotnet run --no-build --project /c/DealerOn/Platform/Source/SITESAA.Presentation.Site/SITESAA.Presentation.Site.csproj'
+alias sitebuild='dotnet build /c/DealerOn/Platform/Source/SITESAA.sln'
+alias sitebr='dotnet run --project /c/DealerOn/Platform/Source/SITESAA.Presentation.Site/SITESAA.Presentation.Site.csproj'
+
+# build and run OEMSSAA from CLI
+alias oemsrun='dotnet run --no-build --project /c/DealerOn/OEMSSAA/source/OEMSSAA.Presentation.Web/OEMSSAA.Presentation.Web.csproj'
+alias oemsbuild='dotnet build /c/DealerOn/OEMSSAA/source/OEMSSAA.sln'
+alias oemsbr='dotnet run --project /c/DealerOn/OEMSSAA/source/OEMSSAA.Presentation.Web/OEMSSAA.Presentation.Web.csproj'
+
+# build and run FIRESAA from CLI
+alias firerun='dotnet run --no-build --project /c/DealerOn/firesaa/source/FIRESAA.Presentation.Web/FIRESAA.Presentation.Web.csproj'
+alias firebuild='dotnet build /c/DealerOn/firesaa/source/FIRESAA.sln'
+alias firebr='dotnet run --project /c/DealerOn/firesaa/source/FIRESAA.Presentation.Web/FIRESAA.Presentation.Web.csproj'
+
+# build and run REVWSAA from CLI
+alias revwrun='dotnet run --no-build --project /c/DealerOn/REVWSAA/source/REVWSAA.Presentation.Web/REVWSAA.Presentation.Web.csproj'
+alias revwbuild='dotnet build /c/DealerOn/REVWSAA/source/REVWSAA.sln'
+alias revwbr='dotnet run --project /c/DealerOn/REVWSAA/source/REVWSAA.Presentation.Web/REVWSAA.Presentation.Web.csproj'
 
 # set nvim to run in correct environment
 # alias nvim="winpty nvim"
@@ -254,15 +277,6 @@ reviews() {
 	review SITESAA $1
 }
 
-rc-old() {
-	if [ $# -eq 1 ]
-	then
-		RC="$1"
-	fi
-
-	echo $RC
-}
-
 rc() {
 	if [ $# -eq 1 ]
 	then
@@ -274,22 +288,33 @@ rc() {
 	echo ":sparkles: Latest RC: $RC"
 }
 
+printrc() {
+	cat /c/DealerOn/.rc
+}
+
 alias sauce="source ~/.bashrc && rm ~/.githooks/prepare-commit-msg && ln -s ~/bash-aliases/prepare-commit-msg ~/.githooks/prepare-commit-msg"
 
 hkdiff() {
 	file1="$(mktemp)"
 	file2="$(mktemp)"
-	curl -k -H "X-Dealer-Id: $3" $1 -o $file1
-	curl -k -H "X-Dealer-Id: $3" $2 -o $file2
 
-	/c/Program\ Files/KDiff3/kdiff3.exe $file1 $file2
+	if [ $# -eq 3 ]
+	then
+		curl -k -H "X-Dealer-Id: $3" $1 -o $file1
+		curl -k -H "X-Dealer-Id: $3" $2 -o $file2
+	else
+		curl -k $1 -o $file1
+		curl -k $2 -o $file2
+	fi
+
+	kdiff3 $file1 $file2
 
 	rm $file1
 	rm $file2
 }
 
-# USAGE: hkdiff just-drive-subaru-rental loadOemssaaSubaru 17777
-# so hkdiff <page> <toggle> <dealerId>
+# USAGE: oemsdiff just-drive-subaru-rental loadOemssaaSubaru 17777
+# so oemsdiff <page> <toggle> <dealerId>
 
 oemsdiff() {
 	hkdiff https://localhost:7224/$1?$2=on https://localhost:7224/$1?$2=off $3

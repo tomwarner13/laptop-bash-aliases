@@ -70,9 +70,9 @@ gmt() {
 }
 
 #use RC as the tag mostly
-alias gmtr='gmt $(rc-old)'
+alias gmtr='gmt $(printrc)'
 gbtr() {
-	gbt $(rc-old) $1
+	gbt $(printrc) $1
 }
 
 #git-pull-down -- a git pull, but the way it should fucking work all the time
