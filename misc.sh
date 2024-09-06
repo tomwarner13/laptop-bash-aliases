@@ -22,7 +22,7 @@ alias snipster-go='./gradlew build && ./gradlew stage && heroku local -f Procfil
 alias lg='winpty lazygit && tput cnorm'
 alias azl='az login'
 alias ybs='(cd /c/DealerOn/Platform/Source/SITESAA.Presentation.Assets/ && yarn build)'
-alias what="type"
+alias what="type" #just cause i always forget "type"
 
 # build and run SITESAA from CLI
 alias siterun='dotnet run --no-build --project /c/DealerOn/Platform/Source/SITESAA.Presentation.Site/SITESAA.Presentation.Site.csproj'
@@ -189,6 +189,22 @@ cc() {
 
 	esac
 	cd /c/DealerOn/$TARGET
+}
+
+makepr() {
+	branch=`git rev-parse --abbrev-ref HEAD`
+	prOutput=$(az repos pr create --auto-complete=false -s $branch --title $branch)
+
+	if [ $? -eq 0 ]; then
+        webUrl=$(grep webUrl <<< $prOutput | sed -rn 's/^.*"webUrl": "([^"]+).*/\1/p')
+        codeReviewId=$(grep codeReviewId <<< $prOutput | sed -rn 's/^.*"codeReviewId": ([^,]+).*/\1/p')
+        prLink="${webUrl}/pullRequest/${codeReviewId}?_a=files"
+
+        echo "Created PR: ${prLink}"
+    else
+        echo "Failed to create PR! Detailed output was:"
+        echo "${prOutput}"
+    fi
 }
 
 # usage: reviewjs <ticket>
