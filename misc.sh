@@ -2,7 +2,7 @@
 export PS1='🏠\[\033[38;5;214m\]\u\[\033[0m\]@\[\033[38;5;39m\]\h\[\033[0m\][\[\033[38;5;11m\]\W\[\033[0m\]]\[\033[36m\]`__git_ps1` \[\033[0m\]| \[\033[38;5;213m\]\t\[\033[0m\] 🏠\n\$ '
 
 # various dependencies necessary for path
-export PATH=$PATH:/usr/bin:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge:/c/Program\ Files/JetBrains/JetBrains\ Rider\ 2023.1.3/bin/:/c/Program\ Files/KDiff3/
+export PATH=$PATH:/usr/bin:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge:/c/Program\ Files/JetBrains/JetBrains\ Rider\ 2024.3/bin/:/c/Program\ Files/KDiff3/
 
 #de-dupe PATH all at once instead of trying to do anything clever
 export PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
@@ -68,9 +68,9 @@ ride() {
 	current_path="$(pwd)"
 	#start SITESAA with the correct solution file cause there's (sigh) three
 	if [ "$current_path" = "/c/DealerOn/Platform" ]; then
-		pwsh -command 'Start-Process "C:\Program Files\JetBrains\JetBrains Rider 2023.3.2\bin\rider64.exe" Source\SITESAA.sln'
+		pwsh -command 'Start-Process "C:\Program Files\JetBrains\JetBrains Rider 2024.3\bin\rider64.exe" Source\SITESAA.sln'
 	else
-		pwsh -command 'Start-Process "C:\Program Files\JetBrains\JetBrains Rider 2023.3.2\bin\rider64.exe" $(find . -maxdepth 2 -name *.sln)'
+		pwsh -command 'Start-Process "C:\Program Files\JetBrains\JetBrains Rider 2024.3\bin\rider64.exe" $(find . -maxdepth 2 -name *.sln)'
 	fi
 	shuf -n 1 ~/bash-aliases/mc_ride.txt
 }
@@ -293,6 +293,10 @@ review() {
 	gsm
 }
 
+undelete() {
+	git restore --staged $1 && git checkout $1
+}
+
 reviews() {
 	review SITESAA $1
 }
@@ -351,3 +355,13 @@ export EDITOR=vim
 export JIRA_URL=https://dealeron.atlassian.net
 export JIRA_USER=twarner@dealeron.com
 # TOKEN LIVES IN .bashrc SO IT CANT GET PUSHED REMOTELY
+
+wifi() {
+	if [ $# -eq 1 ]
+	then
+		pwsh -command "netsh wlan show profile name='$1' key=clear"
+	else
+		echo "Use 'wifi <network_name> to show details and password. Known networks:"
+		pwsh -command "netsh wlan show profiles"
+	fi
+}

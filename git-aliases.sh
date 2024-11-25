@@ -35,7 +35,7 @@ alias gflm='gfl main'
 
 alias grhh='git reset --hard HEAD'
 alias gsm='git submodule update --init --recursive'
-alias gs='git status'
+alias gs='git status; echo "STAGED CHANGES:"; git diff --staged --stat; echo "UNSTAGED CHANGES:"; git diff --stat'
 alias gd='git diff'
 
 gcb() {
