@@ -5,6 +5,14 @@
 # uncomment to disable this check
 # exit 0
 
+if git remote -v | grep -q 'tomwarner13'; then
+  if [[ "$GIT_AUTHOR_EMAIL" != "tomwarner13@gmail.com" ]]; then
+    echo "Hey dummy! This appears to be a personal repo, and the commit email is not the personal email. Try fixing the email config and trying again."
+    echo "git config user.email tomwarner13@gmail.com"
+    exit 1
+  fi
+fi
+
 current_path="$(pwd)"
 if [[ "$current_path" != "/c/DealerOn/"* ]] || [[ "$current_path" = "/c/DealerOn/Snipster"* ]] || [[ "$current_path" = "/c/DealerOn/SITESAA"* ]] || [[ "$current_path" = "/c/DealerOn/ObjectSortConverter"* ]] || [[ "$current_path" = "/c/DealerOn/Projects"* ]]; then
   exit 0
