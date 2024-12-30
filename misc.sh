@@ -65,14 +65,8 @@ vs() {
 }
 
 ride() {
-	current_path="$(pwd)"
-	#start SITESAA with the correct solution file cause there's (sigh) three
-	if [ "$current_path" = "/c/DealerOn/Platform" ]; then
-		pwsh -command 'Start-Process "C:\Program Files\JetBrains\JetBrains Rider 2024.3\bin\rider64.exe" Source\SITESAA.sln'
-	else
-		pwsh -command 'Start-Process "C:\Program Files\JetBrains\JetBrains Rider 2024.3\bin\rider64.exe" $(find . -maxdepth 2 -name *.sln)'
-	fi
-	shuf -n 1 ~/bash-aliases/mc_ride.txt
+	rider64.exe $(wslpath -w `find . -maxdepth 2 -name *.sln`)  &> /dev/null &
+	shuf -n 1 ~/laptop-bash-aliases/mc_ride.txt
 }
 
 alias reamde='ls | grep -i "readme.md" | xargs head -20'
@@ -322,7 +316,7 @@ printrc() {
 	cat /c/DealerOn/.rc
 }
 
-alias sauce="source ~/.bashrc && rm ~/.githooks/prepare-commit-msg && ln -s ~/bash-aliases/prepare-commit-msg ~/.githooks/prepare-commit-msg"
+alias sauce="source ~/.bashrc" # && rm ~/.githooks/prepare-commit-msg && ln -s ~/bash-aliases/prepare-commit-msg ~/.githooks/prepare-commit-msg"
 
 hkdiff() {
 	file1="$(mktemp)"
@@ -359,9 +353,16 @@ export JIRA_USER=twarner@dealeron.com
 wifi() {
 	if [ $# -eq 1 ]
 	then
-		pwsh -command "netsh wlan show profile name='$1' key=clear"
+		netsh.exe wlan show profile name=$1 key=clear
 	else
 		echo "Use 'wifi <network_name> to show details and password. Known networks:"
-		pwsh -command "netsh wlan show profiles"
+		netsh.exe wlan show profiles
 	fi
 }
+
+# configure golang
+export GOROOT=/usr/local/go-1.23.4
+export GOPATH=$HOME/projects/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+export PATH=$PATH:$HOME/projects/go/bin

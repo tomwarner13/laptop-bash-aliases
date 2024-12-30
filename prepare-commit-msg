@@ -5,6 +5,10 @@
 # uncomment to disable this check
 # exit 0
 
+# uncomment to check if it's working
+# echo "commit hook encountered!"
+# exit 1
+
 if git remote -v | grep -q 'tomwarner13'; then
   if [[ "$GIT_AUTHOR_EMAIL" != "tomwarner13@gmail.com" ]]; then
     echo "Hey dummy! This appears to be a personal repo, and the commit email is not the personal email. Try fixing the email config and trying again."
