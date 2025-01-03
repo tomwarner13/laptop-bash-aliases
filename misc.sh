@@ -65,7 +65,7 @@ vs() {
 }
 
 ride() {
-	rider64.exe $(wslpath -w `find . -maxdepth 2 -name *.sln`)  &> /dev/null &
+	powershell.exe Start rider64.exe $(wslpath -w `find . -maxdepth 2 -name *.sln`)
 	shuf -n 1 ~/laptop-bash-aliases/mc_ride.txt
 }
 
