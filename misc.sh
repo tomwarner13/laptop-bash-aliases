@@ -13,6 +13,8 @@ export RIPGREP_CONFIG_PATH='/c/Users/twarner/bash-aliases/.ripgreprc'
 # make ls look nice
 alias ls="ls -Fal --color"
 
+alias fd="fdfind"
+
 # this somehow points to the wrong path to build stuff for Snipster by default
 JAVA_HOME='C:\Program Files\Java\jdk-18.0.2.1'
 

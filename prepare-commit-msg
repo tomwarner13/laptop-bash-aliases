@@ -18,7 +18,7 @@ if git remote -v | grep -q 'tomwarner13'; then
 fi
 
 current_path="$(pwd)"
-if [[ "$current_path" != "/c/DealerOn/"* ]] || [[ "$current_path" = "/c/DealerOn/Snipster"* ]] || [[ "$current_path" = "/c/DealerOn/SITESAA"* ]] || [[ "$current_path" = "/c/DealerOn/ObjectSortConverter"* ]] || [[ "$current_path" = "/c/DealerOn/Projects"* ]]; then
+if [[ "$current_path" = "/c/DealerOn/Projects"* ]]; then
   exit 0
 fi
 
