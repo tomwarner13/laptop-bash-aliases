@@ -8,10 +8,13 @@ export PATH=$PATH:/usr/bin:/c/Users/twarner/AppData/Roaming/Python/Python310/Scr
 export PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
 
 # get RG to look in its config file (so it gets the right flag for path separator)
-export RIPGREP_CONFIG_PATH='/c/Users/twarner/bash-aliases/.ripgreprc'
+# export RIPGREP_CONFIG_PATH='/c/Users/twarner/bash-aliases/.ripgreprc'
 
 # make ls look nice
 alias ls="ls -Fal --color"
+
+# this is cat but with syntax highlighting for known file extensions
+alias ct='highlight -O xterm256 --force'
 
 alias fd="fdfind"
 
