@@ -16,6 +16,10 @@ alias ls="ls -Fal --color"
 # this is cat but with syntax highlighting for known file extensions
 alias ct='highlight -O xterm256 --force'
 
+alias bat='batcat'
+
+alias hugo="hugo.exe" #these is easier than unborking the linux install lmao rip
+
 alias fd="fdfind"
 
 # this somehow points to the wrong path to build stuff for Snipster by default
