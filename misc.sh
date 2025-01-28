@@ -1,5 +1,6 @@
 # emoji prompt
 export PS1='🏠\[\033[38;5;214m\]\u\[\033[0m\]@\[\033[38;5;39m\]\h\[\033[0m\][\[\033[38;5;11m\]\W\[\033[0m\]]\[\033[36m\]`__git_ps1` \[\033[0m\]| \[\033[38;5;213m\]\t\[\033[0m\] 🏠\n\$ '
+PS1=$PS1'\[\e]2;\W\a\]' # set terminal title to cwd
 
 # various dependencies necessary for path
 export PATH=$PATH:/usr/bin:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge:/c/Program\ Files/JetBrains/JetBrains\ Rider\ 2024.3/bin/:/c/Program\ Files/KDiff3/
@@ -20,6 +21,7 @@ alias bat='batcat'
 
 alias hugo="hugo.exe" #these is easier than unborking the linux install lmao rip
 
+alias win32yank="win32yank.exe"
 alias fd="fdfind"
 
 # this somehow points to the wrong path to build stuff for Snipster by default
@@ -74,7 +76,7 @@ vs() {
 }
 
 ride() {
-	powershell.exe Start rider64.exe $(wslpath -w `find . -maxdepth 2 -name *.sln`)
+	powershell.exe Start rider64.exe $(wslpath -w `find . -maxdepth 2 -name *.sln | head -n 1`)
 	shuf -n 1 ~/laptop-bash-aliases/mc_ride.txt
 }
 
