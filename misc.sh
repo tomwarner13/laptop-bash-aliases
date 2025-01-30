@@ -8,6 +8,11 @@ export PATH=$PATH:/usr/bin:/c/Users/twarner/AppData/Roaming/Python/Python310/Scr
 #de-dupe PATH all at once instead of trying to do anything clever
 export PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
 
+# case insensitive tab autocompletions
+# IF THIS DOES NOT WORK, the line below will need to be inserted into /etc/inputrc (for all users) or into ~/.inputrc (for current user, look up how to set that file up locally)
+# set completion-ignore-case On
+bind "set completion-ignore-case on"
+
 # get RG to look in its config file (so it gets the right flag for path separator)
 # export RIPGREP_CONFIG_PATH='/c/Users/twarner/bash-aliases/.ripgreprc'
 
@@ -32,13 +37,13 @@ alias snipster-go='./gradlew build && ./gradlew stage && heroku local -f Procfil
 
 alias lg='winpty lazygit && tput cnorm'
 alias azl='az login'
-alias ybs='(cd /c/DealerOn/Platform/Source/SITESAA.Presentation.Assets/ && yarn build)'
+alias ybs='(cd /c/DealerOn/SITESAA/Source/SITESAA.Presentation.Assets/ && yarn build)'
 alias what="type" #just cause i always forget "type"
 
 # build and run SITESAA from CLI
-alias siterun='dotnet run --no-build --project /c/DealerOn/Platform/Source/SITESAA.Presentation.Site/SITESAA.Presentation.Site.csproj'
-alias sitebuild='dotnet build /c/DealerOn/Platform/Source/SITESAA.sln'
-alias sitebr='dotnet run --project /c/DealerOn/Platform/Source/SITESAA.Presentation.Site/SITESAA.Presentation.Site.csproj'
+alias siterun='dotnet run --no-build --project /c/DealerOn/SITESAA/Source/SITESAA.Presentation.Site/SITESAA.Presentation.Site.csproj'
+alias sitebuild='dotnet build /c/DealerOn/SITESAA/Source/SITESAA.sln'
+alias sitebr='dotnet run --project /c/DealerOn/SITESAA/Source/SITESAA.Presentation.Site/SITESAA.Presentation.Site.csproj'
 
 # build and run OEMSSAA from CLI
 alias oemsrun='dotnet run --no-build --project /c/DealerOn/OEMSSAA/source/OEMSSAA.Presentation.Web/OEMSSAA.Presentation.Web.csproj'
@@ -58,22 +63,6 @@ alias revwbr='dotnet run --project /c/DealerOn/REVWSAA/source/REVWSAA.Presentati
 # set nvim to run in correct environment
 # alias nvim="winpty nvim"
 # alias python3="winpty python3"
-
-vs() {
-	current_path="$(pwd)"
-	#start SITESAA with the correct solution file cause there's (sigh) three
-	if [ "$current_path" = "/c/DealerOn/Platform" ]; then
-		pwsh -command 'Start-Process devenv Source\SITESAA.sln'
-	else
-		pwsh -command 'Start-Process devenv $(find . -maxdepth 2 -name *.sln)'
-	fi
-	#start Torque apps in 2019 because the stupid breakpoint bug
-#	if [ "$current_path" = "/c/DealerOn/Pricing" ] || [ "$current_path" = "/c/DealerOn/Inventory" ]; then
-#		pwsh -command 'Start-Process "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe" $(find . -maxdepth 2 -name *.sln)'
-#	else
-#		pwsh -command 'Start-Process devenv $(find . -maxdepth 2 -name *.sln)'
-#	fi
-}
 
 ride() {
 	powershell.exe Start rider64.exe $(wslpath -w `find . -maxdepth 2 -name *.sln | head -n 1`)
@@ -112,9 +101,6 @@ cc() {
 			;;
 		"NVMPBAA")
 			TARGET="Inventory/"
-			;;
-		"SITESAA")
-			TARGET="Platform/"
 			;;
 		"LCMSSAA")
 			TARGET="Powertrain/"
