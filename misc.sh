@@ -26,6 +26,8 @@ alias bat='batcat'
 
 alias hugo="hugo.exe" #these is easier than unborking the linux install lmao rip
 
+alias clnvim="nvim --noplugin"
+
 alias win32yank="win32yank.exe"
 alias fd="fdfind"
 
@@ -39,6 +41,7 @@ alias lg='winpty lazygit && tput cnorm'
 alias azl='az login'
 alias ybs='(cd /c/DealerOn/SITESAA/Source/SITESAA.Presentation.Assets/ && yarn build)'
 alias what="type" #just cause i always forget "type"
+alias hg='hugo server --disableFastRender'
 
 # build and run SITESAA from CLI
 alias siterun='dotnet run --no-build --project /c/DealerOn/SITESAA/Source/SITESAA.Presentation.Site/SITESAA.Presentation.Site.csproj'
