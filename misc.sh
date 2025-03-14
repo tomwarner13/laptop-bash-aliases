@@ -27,6 +27,7 @@ alias bat='batcat'
 alias hugo="hugo.exe" #these is easier than unborking the linux install lmao rip
 
 alias clnvim="nvim --noplugin"
+alias mount-ass="sudo mount -t drvfs '\\\\assets2\\assets' /mnt/assets"
 
 alias win32yank="win32yank.exe"
 alias fd="fdfind"
