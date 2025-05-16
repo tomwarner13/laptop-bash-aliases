@@ -188,8 +188,11 @@ cc() {
 
 makepr() {
 	branch=`git rev-parse --abbrev-ref HEAD`
-	prOutput=$(az repos pr create --auto-complete=false -s $branch --title $branch)
-
+	if [ $# -eq 1 ] && [ $1 = "-a" ]; then
+	  prOutput=$(az repos pr create --auto-complete=true --delete-source-branch=true -s $branch --title $branch)
+	else
+	  prOutput=$(az repos pr create --auto-complete=false -s $branch --title $branch)
+  fi
 	if [ $? -eq 0 ]; then
         webUrl=$(grep webUrl <<< $prOutput | sed -rn 's/^.*"webUrl": "([^"]+).*/\1/p')
         codeReviewId=$(grep codeReviewId <<< $prOutput | sed -rn 's/^.*"codeReviewId": ([^,]+).*/\1/p')
@@ -356,7 +359,7 @@ wifi() {
 	then
 		netsh.exe wlan show profile name=$1 key=clear
 	else
-		echo "Use 'wifi <network_name> to show details and password. Known networks:"
+		echo "Use 'wifi <network_name>' to show details and password. Known networks:"
 		netsh.exe wlan show profiles
 	fi
 }
