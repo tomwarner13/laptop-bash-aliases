@@ -14,6 +14,9 @@ if git remote -v | grep -q 'tomwarner13'; then
     echo "Hey dummy! This appears to be a personal repo, and the commit email is not the personal email. Try fixing the email config and trying again."
     echo "git config user.email tomwarner13@gmail.com"
     exit 1
+  else
+    # we are in a personal repo, don't worry about ticket number stuff
+    exit 0
   fi
 fi
 
