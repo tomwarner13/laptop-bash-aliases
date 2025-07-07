@@ -22,6 +22,9 @@ alias ls="ls -Fal --color"
 # this is cat but with syntax highlighting for known file extensions
 alias ct='highlight -O xterm256 --force'
 
+#the WSL version of cUrl doesn't connect to localhost for stupid, complicated reasons - use the cmd.exe version instead
+alias curl="cmd.exe /C curl"
+
 alias bat='batcat'
 
 alias hugo="hugo.exe" #these is easier than unborking the linux install lmao rip
@@ -328,11 +331,11 @@ hkdiff() {
 
 	if [ $# -eq 3 ]
 	then
-		curl -k -H "X-Dealer-Id: $3" $1 -o $file1
-		curl -k -H "X-Dealer-Id: $3" $2 -o $file2
+		curl -k -H "X-Dealer-Id: $3" $1 -o $(wslpath -w $file1)
+		curl -k -H "X-Dealer-Id: $3" $2 -o $(wslpath -w $file2)
 	else
-		curl -k $1 -o $file1
-		curl -k $2 -o $file2
+		curl -k $1 -o $(wslpath -w $file1)
+		curl -k $2 -o $(wslpath -w $file2)
 	fi
 
 	kdiff3 $file1 $file2
