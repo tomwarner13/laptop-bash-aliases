@@ -1,3 +1,6 @@
+# fix DNS - this *should* be able to run as a boot.command in /etc/wsl.conf but it doesn't run, for no apparent reason
+alias fixdns="sudo sed -i '/nameserver/d' /etc/resolv.conf && powershell.exe -Command '(Get-DnsClientServerAddress -AddressFamily IPv4).ServerAddresses | ForEach-Object { \"nameserver \$_\" }' | tr -d '\\r' | sudo tee -a /etc/resolv.conf > /dev/null"
+
 # emoji prompt
 export PS1='🏠\[\033[38;5;214m\]\u\[\033[0m\]@\[\033[38;5;39m\]\h\[\033[0m\][\[\033[38;5;11m\]\W\[\033[0m\]]\[\033[36m\]`__git_ps1` \[\033[0m\]| \[\033[38;5;213m\]\t\[\033[0m\] 🏠\n\$ '
 PS1=$PS1'\[\e]2;\W\a\]' # set terminal title to cwd
@@ -35,6 +38,9 @@ alias mount-ass="sudo mount -t drvfs '\\\\assets2\\assets' /mnt/assets"
 alias win32yank="win32yank.exe"
 alias fd="fdfind"
 
+# for running legacy shit like VHCLIAA
+alias dotnet6="/snap/dotnet-sdk/current/dotnet"
+
 # this somehow points to the wrong path to build stuff for Snipster by default
 JAVA_HOME='C:\Program Files\Java\jdk-18.0.2.1'
 
@@ -45,7 +51,11 @@ alias lg='winpty lazygit && tput cnorm'
 alias azl='az login'
 alias ybs='(cd /c/DealerOn/SITESAA/Source/SITESAA.Presentation.Assets/ && yarn build)'
 alias what="type" #just cause i always forget "type"
+
 alias hg='hugo server --disableFastRender'
+hg-new() { 
+	hugo new content recipes/$1.md
+}
 
 # build and run SITESAA from CLI
 alias siterun='dotnet run --no-build --project /c/DealerOn/SITESAA/Source/SITESAA.Presentation.Site/SITESAA.Presentation.Site.csproj'
