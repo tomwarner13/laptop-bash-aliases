@@ -51,6 +51,7 @@ alias lg='winpty lazygit && tput cnorm'
 alias azl='az login'
 alias ybs='(cd /c/DealerOn/SITESAA/Source/SITESAA.Presentation.Assets/ && yarn build)'
 alias what="type" #just cause i always forget "type"
+alias purge-orig="fd -HI .orig | xargs rm"
 
 alias hg='hugo server --disableFastRender'
 hg-new() { 
