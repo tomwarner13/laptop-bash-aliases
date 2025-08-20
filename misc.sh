@@ -6,7 +6,7 @@ export PS1='🏠\[\033[38;5;214m\]\u\[\033[0m\]@\[\033[38;5;39m\]\h\[\033[0m\][\
 PS1=$PS1'\[\e]2;\W\a\]' # set terminal title to cwd
 
 # various dependencies necessary for path
-export PATH=$PATH:/usr/bin:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/Sublime\ Merge:/c/Program\ Files/JetBrains/JetBrains\ Rider\ 2024.3/bin/:/c/Program\ Files/KDiff3/
+export PATH=$PATH:/usr/bin:/c/Users/twarner/AppData/Roaming/Python/Python310/Scripts/:/c/bin/:/c/Program\ Files/KDiff3/
 
 #de-dupe PATH all at once instead of trying to do anything clever
 export PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
@@ -37,9 +37,6 @@ alias mount-ass="sudo mount -t drvfs '\\\\assets2\\assets' /mnt/assets"
 
 alias win32yank="win32yank.exe"
 alias fd="fdfind"
-
-# for running legacy shit like VHCLIAA
-alias dotnet6="/snap/dotnet-sdk/current/dotnet"
 
 # this somehow points to the wrong path to build stuff for Snipster by default
 JAVA_HOME='C:\Program Files\Java\jdk-18.0.2.1'
