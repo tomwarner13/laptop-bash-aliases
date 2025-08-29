@@ -368,7 +368,7 @@ export JIRA_USER=twarner@dealeron.com
 wifi() {
 	if [ $# -eq 1 ]
 	then
-		netsh.exe wlan show profile name=$1 key=clear
+		netsh.exe wlan show profile name="$1" key=clear
 	else
 		echo "Use 'wifi <network_name>' to show details and password. Known networks:"
 		netsh.exe wlan show profiles
