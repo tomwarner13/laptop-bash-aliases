@@ -375,6 +375,84 @@ wifi() {
 	fi
 }
 
+# AAC Aliases
+
+aac-list() {
+	case $1 in
+		"-p") 
+			env="prod"
+			;;
+		"-n") 
+			env="nonprod"
+			;;
+		*)
+			echo "please pass -n for nonprod or -p for prod"
+			return 1
+			;;
+	esac
+
+	echo "searching $env AAC for keys matching $2 ..."
+	az appconfig kv list --endpoint https://do-$env-ac.azconfig.io --key $2 --auth-mode login | rg --passthru '"key":.*|"value":.*'
+}
+
+
+aac-show() {
+	case $1 in
+		"-p") 
+			env="prod"
+			;;
+		"-n") 
+			env="nonprod"
+			;;
+		*)
+			echo "please pass -n for nonprod or -p for prod"
+			return 1
+			;;
+	esac
+
+	echo "searching $env AAC for key matching $2 ..."
+	az appconfig kv show --endpoint https://do-$env-ac.azconfig.io --key $2 --auth-mode login | rg --passthru '"key":.*|"value":.*'
+}
+
+aac-set ()
+{
+	case $1 in
+		"-p")
+			env="prod"
+			;;
+		"-n")
+			env="nonprod"
+			;;
+		*)
+			echo "please pass -n for nonprod or -p for prod";
+			return 1
+			;;
+	esac;
+	echo "updating $env AAC $2 ...";
+	az appconfig kv set --endpoint https://do-$env-ac.azconfig.io --key $2 --value "$3" --auth-mode login
+}
+
+aac-bump ()
+{
+	case $1 in
+		"-p")
+			env="prod"
+			;;
+		"-n")
+			env="nonprod"
+			;;
+		*)
+			echo "please pass -n for nonprod or -p for prod";
+			return 1
+			;;
+	esac;
+	echo "updating $env AAC $2 ...";
+	az appconfig kv set --endpoint https://do-$env-ac.azconfig.io --key $2 --value "$3" --auth-mode login
+	appKey=$( cut -d ":" -f 1 <<< $2 )
+	cutVal=$( cut -c1-10 <<< $3 | tr -d '\n' ) # only record the first 10 characters of new val, in case it's yuge
+	az appconfig kv set --endpoint https://do-$env-ac.azconfig.io --key "$appKey:Sentinel" --value "Update $2 to $cutVal" --auth-mode login
+}
+
 # configure golang
 export GOROOT=/usr/local/go-1.23.4
 export GOPATH=$HOME/projects/go
