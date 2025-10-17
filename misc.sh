@@ -1,6 +1,10 @@
 # fix DNS - this *should* be able to run as a boot.command in /etc/wsl.conf but it doesn't run, for no apparent reason
 alias fixdns="sudo sed -i '/nameserver/d' /etc/resolv.conf && powershell.exe -Command '(Get-DnsClientServerAddress -AddressFamily IPv4).ServerAddresses | ForEach-Object { \"nameserver \$_\" }' | tr -d '\\r' | sudo tee -a /etc/resolv.conf > /dev/null"
 
+fixversions () {
+  sed -i 's/8.0.3[0-9]*/8.0.318/' global.json && sed -i 's/8.0.4[0-9]*/8.0.415/' global.json && sed -i "s/project_dotnet_runtime_version: '8.0.[0-9]*'/project_dotnet_runtime_version: '8.0.21'/" azure-pipelines-variables.yml
+}
+
 # emoji prompt
 export PS1='🏠\[\033[38;5;214m\]\u\[\033[0m\]@\[\033[38;5;39m\]\h\[\033[0m\][\[\033[38;5;11m\]\W\[\033[0m\]]\[\033[36m\]`__git_ps1` \[\033[0m\]| \[\033[38;5;213m\]\t\[\033[0m\] 🏠\n\$ '
 PS1=$PS1'\[\e]2;\W\a\]' # set terminal title to cwd
