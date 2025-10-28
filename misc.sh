@@ -1,4 +1,5 @@
 # fix DNS - this *should* be able to run as a boot.command in /etc/wsl.conf but it doesn't run, for no apparent reason
+# this isn't working because we ended up setting /etc/resolve.conf to immutable -- make changes there (see comments in file) to add/remove DNS servers
 alias fixdns="sudo sed -i '/nameserver/d' /etc/resolv.conf && powershell.exe -Command '(Get-DnsClientServerAddress -AddressFamily IPv4).ServerAddresses | ForEach-Object { \"nameserver \$_\" }' | tr -d '\\r' | sudo tee -a /etc/resolv.conf > /dev/null"
 
 fixversions () {
@@ -378,6 +379,8 @@ wifi() {
 		netsh.exe wlan show profiles
 	fi
 }
+
+alias myip="curl https://icanhazip.com/"
 
 # AAC Aliases
 

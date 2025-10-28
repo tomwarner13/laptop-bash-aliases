@@ -47,9 +47,20 @@ then
   echo "Commit anyway? [y for yes, {any} for no]"
   read -p "Commit anyway? " yn
   case $yn in
-    [Yy]* ) exit 0;;
+    [Yy]* ) echo "committing...";;
     * ) exit 1;;
   esac
+
+  if [[ $BRANCH == "main" ]]
+  then
+    echo "You are absolutely on main!!!!! Please confirm again!!!!!"
+    echo "Commit anyway? [y for yes, {any} for no]"
+    read -p "Commit anyway? " yn
+    case $yn in
+      [Yy]* ) exit 0;;
+      * ) exit 1;;
+    esac
+  fi
 
   # return input to wherever it was assigned before i guess
   exec <&-
