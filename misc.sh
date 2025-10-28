@@ -460,6 +460,60 @@ aac-bump ()
 	az appconfig kv set --endpoint https://do-$env-ac.azconfig.io --key "$appKey:Sentinel" --value "Update $2 to $cutVal" --auth-mode login
 }
 
+kv-set ()
+{
+    case $1 in
+        "-p")
+            env="prod"
+        ;;
+        "-n")
+            env="nonprod"
+        ;;
+        *)
+            echo "please pass -n for nonprod or -p for prod";
+            return 1
+        ;;
+    esac;
+    echo "updating $env KV $2 ...";
+    az keyvault secret set --vault-name do-$env-kv -n $2 --value "$3"
+}
+
+kv-show ()
+{
+    case $1 in
+        "-p")
+            env="prod"
+        ;;
+        "-n")
+            env="nonprod"
+        ;;
+        *)
+            echo "please pass -n for nonprod or -p for prod";
+            return 1
+        ;;
+    esac;
+    echo "searching $env KV for key matching $2 ...";
+    az keyvault secret show --vault-name do-$env-kv -n $2 | rg --passthru '"name":.*|"value":.*'
+}
+
+kv-list ()
+{
+    case $1 in
+        "-p")
+            env="prod"
+        ;;
+        "-n")
+            env="nonprod"
+        ;;
+        *)
+            echo "please pass -n for nonprod or -p for prod";
+            return 1
+        ;;
+    esac;
+    echo "searching $env KV for the FIRST 25(!!) keys matching $2 ...";
+    az keyvault secret list --vault-name do-$env-kv --query "[?contains(name,'$2')].id" | rg --passthru '"name":.*|"value":.*'
+}
+
 # configure golang
 export GOROOT=/usr/local/go-1.23.4
 export GOPATH=$HOME/projects/go
